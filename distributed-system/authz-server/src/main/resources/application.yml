@@ -4,9 +4,10 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: DEBUG
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    ca: DEBUG
+#    org.springframework.web: INFO
+#    org.springframework.security: DEBUG
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 
 
 spring:
@@ -14,6 +15,10 @@ spring:
     url: jdbc:mariadb://127.0.0.1:3306/dist_sys
     username: root
     password: root
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://auth-server:9000
 #  sql:
 #    init:
 #      mode: always

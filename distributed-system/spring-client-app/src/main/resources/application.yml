@@ -4,9 +4,10 @@ server:
 logging:
   level:
     root: INFO
-    org.springframework.web: INFO
-    org.springframework.security: DEBUG
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    ca: DEBUG
+#    org.springframework.web: DEBUG
+#    org.springframework.security: DEBUG
+#    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 
 spring:
   thymeleaf:
@@ -25,4 +26,4 @@ spring:
             client-name: spring-client-oidc
         provider:
           spring:
-            issuer-uri: http://127.0.0.1:9000
+            issuer-uri: http://auth-server:9000
