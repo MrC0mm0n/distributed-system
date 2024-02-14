@@ -1,0 +1,21 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/dist_sys
+    username: root
+    password: root
+#  sql:
+#    init:
+#      mode: always
