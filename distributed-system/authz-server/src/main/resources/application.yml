@@ -10,8 +10,6 @@ logging:
 
 
 spring:
-  thymeleaf:
-    cache: false
   datasource:
     url: jdbc:mariadb://127.0.0.1:3306/dist_sys
     username: root
