@@ -42,15 +42,15 @@ public class ServerConfig {
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
 		http.exceptionHandling(
-				(exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
-				.oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
+				exceptions -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+				.oauth2ResourceServer(resourceServer -> resourceServer.jwt(Customizer.withDefaults()));
 		return http.build();
 	}
 
 	@Bean
 	@Order(2)
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+		http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
 				.formLogin(Customizer.withDefaults());
 		return http.build();
 	}
@@ -75,13 +75,13 @@ public class ServerConfig {
 				registeredClientRepository.save(
 					RegisteredClient.withId(UUID.randomUUID().toString())
 						.clientId("spring-client").clientSecret("{noop}secret").clientName("Spring Client")
+						.clientAuthenticationMethods(cam -> cam.add(CLIENT_SECRET_BASIC))
 						.authorizationGrantTypes(authorizationGrantTypes -> authorizationGrantTypes
 								.addAll(Set.of(CLIENT_CREDENTIALS, AUTHORIZATION_CODE, REFRESH_TOKEN)))
 						.redirectUris(uri -> {
 							uri.add("http://127.0.0.1:8080/login/oauth2/code/spring-client-oidc");
 							uri.add("http://127.0.0.1:8080/authorized");
 						}).scopes(scopes -> scopes.addAll(Set.of("api1.read", "api1.write", "openid")))
-						.clientAuthenticationMethods(cam -> cam.add(CLIENT_SECRET_BASIC))
 						// .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 						.build()
 				);
